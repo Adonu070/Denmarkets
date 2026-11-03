@@ -4,6 +4,7 @@ const list=document.querySelectorAll('.list')
 const curency=document.querySelector('.currency')
 const selectpiar=document.getElementById('select-pair')
 const bluring=document.querySelector('.blur')
+const allplatformblur=document.querySelector('.allplatformblur')
 const pair=document.querySelector('.pairs')
 const pairsymbol=document.getElementById('pairsymbol');
 const liveprice=document.getElementById('liveprice')
@@ -62,17 +63,26 @@ const crypto=document.getElementById('crypto');
 const indices=document.getElementById('indices')
 const market=document.querySelector('.market')
 
-let fxbgcolor= document.querySelector('.fx');
-let cryptobrcolor=document.querySelector('.cryp');
-let indicesecolor=document.querySelector('.inds');
-
-
+const fxbgcolor= document.querySelector('.fx');
+const cryptobrcolor=document.querySelector('.cryp');
+const indicesecolor=document.querySelector('.inds');
 const thefx=document.querySelector('.thefx')
 const thedity=document.querySelector('.thedity')
 const thepto=document.querySelector('.thepto')
 const allplatform=document.querySelector('.allplatform')
 const brokers=document.querySelector('.brokers')
 const propfirm=document.querySelector('.prop');
+const platformtype=document.querySelector('.platform-type');
+const thebroker=document.querySelector('.thebroker');
+  const thepropfirm=document.querySelector('.thepropfirm');
+const  platform=document.querySelectorAll('.platform')
+const brokerandpropdisplay=document.querySelector('.brokerandprop-display');
+const selectedplatform=document.querySelectorAll('.selected-platform')
+
+
+
+brokers.style.display='block';
+
 // auto
 pair.innerHTML='Currency pair'
 thefx.innerHTML='fx'
@@ -116,7 +126,9 @@ propfirm.style.display='none'
   thedity.innerHTML='commodity';
   pair.innerHTML='Choose pair'
     curency.innerHTML='Select pair'
-    
+    allplatformblur.style.display='block';
+    thebroker.classList.add('green');
+    thepropfirm.classList.remove('green')
 }
 
 
@@ -197,7 +209,9 @@ let cryptopairpaylot=1
 let pairwithoutjpy= 0.0001
 let pairdwithjpy=0.01
 let contractsize=100000
-
+// indices
+let smallcontractsize=1
+let mediumcontractsize=10
 // pips value end
 
 calculatebtn.addEventListener('click',()=>{
@@ -208,6 +222,7 @@ calculatebtn.addEventListener('click',()=>{
  let pipsvalue=Number(pips.value)
  let risktotake=balanceevalue*riskvalue/100; //risk
 //  get % of the balance end
+// commodity
 if (curency.innerHTML.includes('XAUUSD')&& balanceevalue&&riskvalue&&pipsvalue){
  let xauusdlotstouse=risktotake/(pipsvalue*xauusdpaylot)
  lotsize.innerHTML=xauusdlotstouse.toFixed(3);
@@ -215,7 +230,6 @@ if (curency.innerHTML.includes('XAUUSD')&& balanceevalue&&riskvalue&&pipsvalue){
  displaypipvalue.innerHTML=`$${1}`
  displaypipsinrisk.innerHTML=pipsvalue
 }
-
 
 // get html currency showing
 const allpairs=curency.textContent.trim();
@@ -257,8 +271,6 @@ else if (quotecurrency==='CHF'&&balanceevalue&&riskvalue&&pipsvalue){
 // USD/JPY GROUP
 else if (quotecurrency==='JPY'&&balanceevalue&&riskvalue&&pipsvalue){
 
-
-
   
  fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/USD/JPY`)
 .then((threspons)=>threspons.json())
@@ -276,9 +288,6 @@ console.log()
 // AUDUSD GROUP
 
 else if (quotecurrency==='AUD'&&balanceevalue&&riskvalue&&pipsvalue){
-
-
-
   
  fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/AUD/USD`)
 .then((threspons)=>threspons.json())
@@ -369,15 +378,104 @@ let cryptolotstouse=risktotake/(pipsvalue*cryptopairpaylot)
  displaypipsinrisk.innerHTML=pipsvalue;
 }
 
+// indices
+
+else if(!brokerandpropdisplay.innerHTML.includes('OctaFX')&&curency.innerHTML.includes('NAS100')||curency.innerHTML.includes('SXP500')){
+let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize)
+ lotsize.innerHTML=indiceslotstouse.toFixed(3);
+  displayriskaount.innerHTML=`$${risktotake}`
+}
+else if(brokerandpropdisplay.innerHTML.includes('OctaFX')&&curency.innerHTML.includes('US30')){
+let indiceslotstouse=risktotake/(pipsvalue*mediumcontractsize)
+ lotsize.innerHTML=indiceslotstouse.toFixed(3);
+  displayriskaount.innerHTML=`$${risktotake}`
+}
+
+else if(brokerandpropdisplay.innerHTML.includes('Funded next')){
+let indiceslotstouse=risktotake/(pipsvalue*mediumcontractsize)
+ lotsize.innerHTML=indiceslotstouse.toFixed(3);
+  displayriskaount.innerHTML=`$${risktotake}`
+}
+
+
+else if(curency.innerHTML.includes('US30')){
+  let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize)
+ lotsize.innerHTML=indiceslotstouse.toFixed(3);
+  displayriskaount.innerHTML=`$${risktotake}`
+}
+
+else if(curency.innerHTML.includes('GER40')){
+
+ fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/EUR/USD`)
+.then((threspons)=>threspons.json())
+.then( therespons=>localStorage.setItem('eurusdprice',therespons.conversion_rate))
+let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize*Number(localStorage.getItem('eurusdprice')))
+ lotsize.innerHTML=indiceslotstouse.toFixed(3);
+
+
+}
+else if(curency.innerHTML.includes('JP225')){
+
+ fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/USD/JPY`)
+.then((threspons)=>threspons.json())
+.then( therespons=>localStorage.setItem('usdjpyprice',therespons.conversion_rate))
+let indiceslotstouse=(risktotake*Number(localStorage.getItem('usdjpyprice')))/(pipsvalue*smallcontractsize)
+
+ lotsize.innerHTML=indiceslotstouse.toFixed(3);
+
+
+}
+else if(curency.innerHTML.includes('UK100')){
+
+ fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/GBP/USD`)
+.then((threspons)=>threspons.json())
+.then( therespons=>localStorage.setItem('gbpusdprice',therespons.conversion_rate))
+let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize*Number(localStorage.getItem('gbpusdprice')))
+ lotsize.innerHTML=indiceslotstouse.toFixed(3);
+
+
+}
+
+// cruid oil
+// else if (curency.innerHTML.includes('USOIL')&&balanceevalue&&riskvalue&&pipsvalue&&brokerandpropdisplay.innerHTML.includes('IC Markets')||brokerandpropdisplay.innerHTML.includes('HFM')){
+
+//  let usoilotstouse=risktotake/(pipsvalue*smallcontractsize)
+//  lotsize.innerHTML=usoilotstouse.toFixed(3);
+//  displayriskaount.innerHTML=`$${risktotake}`
+//  displaypipvalue.innerHTML=`$${1}`
+//  displaypipsinrisk.innerHTML=pipsvalue
+// }
+
+// else if(curency.innerHTML.includes('USOIL')&&balanceevalue&&riskvalue&&pipsvalue&&brokerandpropdisplay.innerHTML.includes('Exness')){
+//  let usoilotstouse=risktotake/(pipsvalue*mediumcontractsize)
+//  lotsize.innerHTML=usoilotstouse.toFixed(3);
+//  displayriskaount.innerHTML=`$${risktotake}`
+//  displaypipvalue.innerHTML=`$${10}`
+//  displaypipsinrisk.innerHTML=pipsvalue
+
+// }
+
+
 else{
  lotsize.innerHTML='0.000'
 }
 
-})
+
+ 
+
+})}
 
 
 
-}
+
+
+
+
+
+
+
+
+
 
 const savebalance=document.querySelector('.save-balance');
 const savebalancerap=document.querySelector('.save-balance-rap');
@@ -476,18 +574,25 @@ calculatorpage.addEventListener('click',()=>{
 // platforms
 
 // brokers
-const  platform=document.querySelectorAll('.platform')
 
 
-platform.forEach(platform=>{
+
+platform.forEach(platform=>{  
   platform.addEventListener('click',()=>{
+  
     if(platform.innerHTML==='Brokers'){
 brokers.style.display='block';
 propfirm.style.display='none'
+thebroker.classList.add('green')
+thepropfirm.classList.remove('green')
+platformtype.innerHTML='CFD Broker'
     }
 else if (platform.innerHTML==='Propfirms'){
 brokers.style.display='none';
 propfirm.style.display='block'
+thepropfirm.classList.add('green')
+thebroker.classList.remove('green')
+platformtype.innerHTML='Propfirm'
 }
 
 
@@ -495,9 +600,20 @@ propfirm.style.display='block'
   })
 })
 
+selectedplatform.forEach(selectedplatform=>{
+
+  selectedplatform.addEventListener('click',()=>{
+    allplatformblur.style.display='none'
+   brokerandpropdisplay.innerHTML=selectedplatform.innerHTML
+
+  }
+)
 
 
-
+ } )
+if (thebroker.classList.add('green')){
+platformtype.innerHTML='CFD Broker'
+}
 //brokers end
 
 // platforms end
