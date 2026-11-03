@@ -89,6 +89,12 @@ font-size: 0.8rem;
   gap: 1rem;
 }
 
+.head-text{
+  font-size: var(--meduimsize-2rem);
+  display: flex;
+  align-self: flex-start;
+}
+
 .trade-image{
   width: 4rem;
   height: 4rem;
@@ -166,10 +172,11 @@ align-self: flex-start;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
+ 
   /* background-color: var(--primary); */
 }
 .market-selection{
-width: 60rem;
+width: 100rem;
 }
 
 .market-rap{
