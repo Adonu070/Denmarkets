@@ -187,7 +187,7 @@ bluring.style.display='block'
 
 
 
-
+fetch(`https://api.massive.com/v2/aggs/ticker/I:NDX/range/1/minute/2026-11-03/2026-11-04?apiKey=YOUR_API_KEY`)
 
 
 //  display result
@@ -249,6 +249,9 @@ console.log(quotecurrency)
   let convertousdamount=thecontracsize/convertusdcadprice; //pips in USD is correct
   let thelotsizetouse=risktotake/(pipsvalue*convertousdamount) 
   lotsize.innerHTML=thelotsizetouse.toFixed(3)
+   displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 
 
@@ -510,66 +513,62 @@ inputext.forEach(inputext=>{
 
 
 // nav
-const calculatorpage=document.querySelector('.calculator-page');
 
-if (calculatorpage){
+const informationpage=document.getElementById('informationpage');
+const inforpagesign=document.querySelector('.infor-page-sign')
+const calculatorpage=document.getElementById('calculatorpage');
+const calculatorpagesign=document.querySelector('.calculator-page-sign')
 
+  calculatorpage.style.display='block'
+function showpage(pageid){
+if(pageid==='informationpage'){
 
-
-
-const calculatorpagetwo=document.querySelector('.calculator-page-two');
-const calculate=document.getElementById('Calculate');
-  const theinforpage=document.querySelector('.infor-page');
-const theinforpagetwo=document.querySelector('.infor-page-two');
-
-const infor= document.getElementById('Infor')
-
-   calculate.classList.add('Calculate');
-//  theinforpage.addEventListener('.click',()=>{
-//   theinforpage.style.display='none'})
-calculatorpage.style.display='none'
- calculatorpagetwo.style.display='block';
-   theinforpage.style.display='block';
-
-let page=document.querySelectorAll('.page')
-function showpage(thepage){
-page.forEach(pages=>{
-  pages.style.display='none';
-})
-document.getElementById(thepage).style.display='block'
-
+  informationpage.style.display='block';
+  calculatorpage.style.display='none'
+  inforpagesign.classList.add('greennav')
 }
 
+else if (pageid==='calculatorpage'){ 
+  calculatorpage.style.display='block'
+ informationpage.style.display='none';
+ 
+}
+}
 
+// const pipscheck=document.querySelectorAll('.pips-check')
+const forforex=document.querySelector('.for-forex')
+const cryptoandcommodity=document.querySelector('.crypto-commodity')
+const cryptoandcommodityimage=document.querySelector
+('.crypto-commodity-image')
+const foreximage=document.querySelector('.forex-image')
 
-  theinforpage.addEventListener('click',()=>{
-   theinforpage.style.display='none'; 
-    theinforpagetwo.style.display='block';
-    calculatorpage.style.display='block';
-  calculatorpagetwo.style.display='none';
-
-   infor.classList.add('Info')
-   calculate.classList.remove('Calculate');
-})
-
-
-
-
-
-calculatorpage.addEventListener('click',()=>{
-  calculatorpage.style.display='none';
-  calculatorpagetwo.style.display='block';
-   theinforpage.style.display='block'; 
-    theinforpagetwo.style.display='none';
-   infor.classList.remove('Info')
-   calculate.classList.add('Calculate');
-})
-
-
-
-
+forforex.addEventListener('click',()=>{
+  foreximage.style.display='block';
+  //  cryptoandcommodityimage.style.display='none'
+}
+)
+cryptoandcommodity.addEventListener('click',()=>{
+  cryptoandcommodityimage.style.display='block'
+  //  foreximage.style.display='none'
 
 }
+)
+
+forforex.addEventListener('dblclick',()=>{
+  foreximage.style.display='none';
+  //  cryptoandcommodityimage.style.display='none'
+}
+)
+cryptoandcommodity.addEventListener('dblclick',()=>{
+  cryptoandcommodityimage.style.display='none'
+}
+
+)
+
+
+// nav end
+
+
 
 // platforms
 

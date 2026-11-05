@@ -13,6 +13,7 @@
 <body>
 
 <div class="container" >
+
 <div id="calculatorpage" class="page">
 
 
@@ -239,7 +240,7 @@ FOMC Press Conference</span>
  <li class="list" onclick="gatedata('CHF/JPY')" ><img class="flag"  src="logo & flag/CH.svg" alt=""><img class="flag" src="logo & flag/JP.svg" alt="">CHFJPY</li>
   <li class="list" onclick="gatedata('EUR/CHF')" ><img class="flag"  src="logo & flag/EU.svg" alt=""><img class="flag" src="logo & flag/CH.svg" alt="">EURCHF</li>
    <li class="list" onclick="gatedata('EUR/NZD')" ><img class="flag"  src="logo & flag/EU.svg" alt=""><img class="flag" src="logo & flag/NZ.svg" alt="">EURNZD</li>
-  <li class="list" onclick="gatedata('EUR/NZD')" ><img class="flag"  src="logo & flag/CA.svg" alt=""><img class="flag" src="logo & flag/CH.svg" alt="">CADCHF</li>
+  <li class="list" onclick="gatedata('CAD/CHF')" ><img class="flag"  src="logo & flag/CA.svg" alt=""><img class="flag" src="logo & flag/CH.svg" alt="">CADCHF</li>
 
 <!-- minor pairs end -->
 </ul>
@@ -364,7 +365,7 @@ FOMC Press Conference</span>
 <span>Recommanded Lost Size</span>
 
 <div class="lots-size-rap">
-   <span class="lots-size">0.00</span> <span>Lots</span>
+   <span class="lots-size">0.000</span> <span>Lots</span>
 </div>
 
 </div>
@@ -512,7 +513,7 @@ FOMC Press Conference</span>
 
 </div></a>
 
-<div id="informationpage" class="page" hidden>
+<div id="informationpage" class="page" >
 <div class="description">
 
 
@@ -523,31 +524,56 @@ FOMC Press Conference</span>
 
 <p>The calculator uses your account balnce, risk%, pips in risk and the currency pair pip value to calculate the correct lots size to use and potential loss.</p>
 </div>
+<!-- how to know pips -->
+
+<div class="know-your-pips">
+  <div class="pips-check ">
+     <span class="for-forex ">How to check your pips stop lose in forex</span>
+<img class="know-pips-image forex-image " src="images/forex.png" alt="">
+  </div>
+ 
+
+<div class="pips-check">
+  <span class="crypto-commodity">How to check your pips stop lose in Indices,crypto and commodity</span>
+<img class="know-pips-image crypto-commodity-image" src="images/XA-BTC-Indices.png" alt="">
 </div>
+ 
+
 </div>
+
+
+
+</div>
+
+</div>
+
+
+
 <nav>
 
-  <div  class="nav-property">
-    
-     <img  class="icons nav-image calculator-page"id="" onclick="showpage('calculatorpage')" src="icons/calculator-nav.svg" alt="">
-   
-    <img class="icons nav-image calculator-page-two" id="" src="icons/calculator-nav2.svg" alt="">
-<span class="nav-text calculator-page"  onclick="showpage('calculatorpage')" id="Calculate">Calculator</span>
+  <div  class="nav-property" onclick="showpage('calculatorpage')">
+    <span class="calculator-page-sign"></span>
+
+
+     <img  class="icons nav-image calculator-page"id="" src="icons/calculator-nav.svg" alt="">
+
+<span class="nav-text">Calculator</span>
+
+
   </div>
 
-<!-- <input type="search" name="" id="searchinput"><button class="search">search</button> -->
+<!--  -->
+<div class="nav-property" onclick="showpage('informationpage')">
+     <span  class="infor-page-sign"></span>
+     <img class="icons nav-image infor-page"src="icons/alert-circle-outline.svg" alt="">
 
-<div class="nav-property">
+<span  class="nav-text infor-page"  id="Infor">Infor</span>
 
-     <img class="icons nav-image infor-page" onclick="showpage('informationpage')" src="icons/alert-circle-outline.svg" alt="">
-  
-  <img class="icons nav-image infor-page-two" src="icons/alert-nav.svg">
 
-<span  class="nav-text infor-page" onclick="showpage('informationpage')" id="Infor">Infor</span>
+
 </div>
 
 </nav>
-
 
 
 
