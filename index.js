@@ -8,6 +8,9 @@ const allplatformblur=document.querySelector('.allplatformblur')
 const pair=document.querySelector('.pairs')
 const pairsymbol=document.getElementById('pairsymbol');
 const liveprice=document.getElementById('liveprice')
+const thefx=document.querySelector('.thefx')
+const thedity=document.querySelector('.thedity')
+const thepto=document.querySelector('.thepto')
 let balance=document.getElementById('balance');
 
 
@@ -44,26 +47,65 @@ bluring.style.display='none'
 async function gatedata(thesymbol){
 try{
 
+
+
   const respons= await fetch(`https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/${thesymbol}`)
 
 const data= await respons.json();
 let result=JSON.stringify(data.conversion_rate)
 liveprice.innerHTML=result
 
-// let pairchar=JSON.stringify(thesymbol);
+// // let pairchar=JSON.stringify(thesymbol);
 let removedpairchar=thesymbol.replaceAll("/","")
 //  pairsymbol.innerHTML=removedpairchar
 
-if(curency.innerHTML.includes('BTC')||curency.innerHTML.includes('BTC')){
-   liveprice.innerHTML='----'
-}
+// if(thesymbol==='BTC'){
+  // async function getcryptoprice(){
+  
+
+
+
+// getcryptoprice()
+// }
 
 }catch (error){
 alert('please check your internet connection')
 
 }
-
 }
+
+
+async function getcryptodata(cryptosymbol){
+    try{
+      const response = await fetch(
+  // symbols=pairs
+  // last=current price
+  
+  `https://api.freecryptoapi.com/v1/getData?symbol=${cryptosymbol}`,
+  {
+    headers: {
+      Authorization: "Bearer wz4zscjpomqkgplv6j3g"
+    }
+  }
+);
+
+const cryptodata = await response.json();
+
+
+  liveprice.innerHTML=cryptodata.symbols[0].last
+
+
+   } catch(error){
+alert('please check your internet connection')
+    }
+  }
+async function name(){
+   const indicesrespons= await fetch(`https://financialmodelingprep.com/stable/quote?symbol=^NDX&apikey=g8hWTaM4vf5ME9C22tjLHgKrcL6ZxUL3`)
+  const theindicesdata= await indicesrespons.json();
+  console.log(theindicesdata)
+}
+
+name()
 
 
 // window.gatedata=gatedata;
@@ -80,9 +122,6 @@ const market=document.querySelector('.market')
 const fxbgcolor= document.querySelector('.fx');
 const cryptobrcolor=document.querySelector('.cryp');
 const indicesecolor=document.querySelector('.inds');
-const thefx=document.querySelector('.thefx')
-const thedity=document.querySelector('.thedity')
-const thepto=document.querySelector('.thepto')
 const allplatform=document.querySelector('.allplatform')
 const brokers=document.querySelector('.brokers')
 const propfirm=document.querySelector('.prop');
@@ -227,7 +266,6 @@ let contractsize=100000
 let smallcontractsize=1
 let mediumcontractsize=10
 // pips value end
-
 
 
 calculatebtn.addEventListener('click',()=>{
@@ -418,6 +456,10 @@ let majorpairlots=risktotake/(pipsvalue*majorpairpaylot)
 
 
 else if (curency.innerHTML.includes('BTC')||curency.innerHTML.includes('ETH')&&balanceevalue &&riskvalue && pipsvalue){
+
+
+
+
 let cryptolotstouse=risktotake/(pipsvalue*cryptopairpaylot)
  lotsize.innerHTML=cryptolotstouse.toFixed(3);
  displayriskaount.innerHTML=`$${risktotake}`
@@ -426,8 +468,9 @@ let cryptolotstouse=risktotake/(pipsvalue*cryptopairpaylot)
     displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${'--'}`
  displaypipsinrisk.innerHTML=pipsvalue
-liveprice.innerHTML='----'
+
 }
+
 
 // indices
 
