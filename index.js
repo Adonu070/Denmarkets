@@ -1,12 +1,12 @@
 
 const ulpage=document.querySelectorAll('.ul-page');
 const list=document.querySelectorAll('.list')
-const curency=document.querySelectorAll('.currency')
+const curency=document.querySelector('.currency')
 const selectpiar=document.getElementById('select-pair')
 const bluring=document.querySelector('.blur')
 const allplatformblur=document.querySelector('.allplatformblur')
 const pair=document.querySelector('.pairs')
-// const pairsymbol=document.getElementById('pairsymbol');
+const pairsymbol=document.getElementById('pairsymbol');
 const liveprice=document.getElementById('liveprice')
 let balance=document.getElementById('balance');
 
@@ -20,9 +20,9 @@ let balance=document.getElementById('balance');
 
  list.forEach(list=>{
 list.addEventListener('click',()=>{ 
-  curency.forEach(curency=>{
+ 
      curency.innerHTML=list.innerHTML
-  })  
+  pairsymbol.innerHTML=list.innerHTML
  
 //  document.querySelector('.currencyselcted').innerHTML=list.innerHTML
 bluring.style.display='none'
@@ -33,6 +33,13 @@ bluring.style.display='none'
 
 
 // ,"base_code":"GBP","target_code":"USD","conversion_rate":1.3375}
+
+
+// const respons= await fetch(`https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/${thesymbol}`)
+
+// const data= await respons.json();
+// let result=JSON.stringify(data.conversion_rate)
+// liveprice.innerHTML=result
 
 async function gatedata(thesymbol){
 try{
@@ -47,13 +54,17 @@ liveprice.innerHTML=result
 let removedpairchar=thesymbol.replaceAll("/","")
 //  pairsymbol.innerHTML=removedpairchar
 
+if(curency.innerHTML.includes('BTC')||curency.innerHTML.includes('BTC')){
+   liveprice.innerHTML='----'
+}
 
 }catch (error){
+alert('please check your internet connection')
 
+}
 
 }
 
-}
 
 // window.gatedata=gatedata;
 
@@ -415,6 +426,7 @@ let cryptolotstouse=risktotake/(pipsvalue*cryptopairpaylot)
     displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${'--'}`
  displaypipsinrisk.innerHTML=pipsvalue
+liveprice.innerHTML='----'
 }
 
 // indices

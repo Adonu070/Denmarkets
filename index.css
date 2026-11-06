@@ -535,7 +535,14 @@ top: 10%; */
   border-radius: 1rem;
   /* margin-bottom: 1rem; */
 }
+.pairsymbol{
+  display: flex;
+  align-items: center;
+gap: 0.2rem;
 
+  /* justify-self: center; */
+  /* flex-direction: column; */
+}
 
 /* save balance */
 
@@ -889,6 +896,7 @@ padding: 0rem;
 .platform-and-price{
   margin-bottom: -2rem;
 }
+
 
 .icons-back{
   margin: 1rem;
