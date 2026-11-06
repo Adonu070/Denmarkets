@@ -685,6 +685,7 @@ to{
 .page{
   margin-top: 7rem;
   display: none;
+  
 }
 
 /* infor page */
@@ -852,7 +853,6 @@ font-size:80%;
   
 /* margin-right:9rem;
 padding: 0rem; */
-z-index: 1;
 
 
 }
@@ -864,7 +864,7 @@ height: 100%;
 width: 100%;
 top: 0%;
 left: 0%;
-z-index: 1;
+z-index: 2;
 display: none;
 }
 
@@ -925,6 +925,7 @@ display: inline;
 
 .topmeanu{
   display: inline;
+  padding-right: 2rem;
 }
 /* .risk-details{
   display: flex;
@@ -963,10 +964,20 @@ header{
   align-items: center;
   
   left: 0%;
- 
- 
- 
+ z-index: 1;
+justify-content: space-evenly;
+padding-right:4rem ;
+padding-left: 1rem;
+padding-bottom: 0.5rem;
+f
+
 }
+
+.left-page{
+  z-index: -1;
+}
+
+
 .mainfeature{
   width: 100%;
   
@@ -1128,6 +1139,14 @@ position: relative;
 .informationpage,.home-page{
   width: 90%;
 }
+
+header{
+  width: 100%;
+justify-content: space-around;
+align-items: center;
+
+}
+
 }
 
 /* with 200-400px */
