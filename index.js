@@ -1,12 +1,12 @@
 
 const ulpage=document.querySelectorAll('.ul-page');
 const list=document.querySelectorAll('.list')
-const curency=document.querySelector('.currency')
+const curency=document.querySelectorAll('.currency')
 const selectpiar=document.getElementById('select-pair')
 const bluring=document.querySelector('.blur')
 const allplatformblur=document.querySelector('.allplatformblur')
 const pair=document.querySelector('.pairs')
-const pairsymbol=document.getElementById('pairsymbol');
+// const pairsymbol=document.getElementById('pairsymbol');
 const liveprice=document.getElementById('liveprice')
 let balance=document.getElementById('balance');
 
@@ -19,8 +19,11 @@ let balance=document.getElementById('balance');
 
 
  list.forEach(list=>{
-list.addEventListener('click',()=>{   
-  curency.innerHTML=list.innerHTML
+list.addEventListener('click',()=>{ 
+  curency.forEach(curency=>{
+     curency.innerHTML=list.innerHTML
+  })  
+ 
 //  document.querySelector('.currencyselcted').innerHTML=list.innerHTML
 bluring.style.display='none'
 
@@ -34,7 +37,7 @@ bluring.style.display='none'
 async function gatedata(thesymbol){
 try{
 
-  const respons= await fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/${thesymbol}`)
+  const respons= await fetch(`https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/${thesymbol}`)
 
 const data= await respons.json();
 let result=JSON.stringify(data.conversion_rate)
@@ -42,7 +45,7 @@ liveprice.innerHTML=result
 
 // let pairchar=JSON.stringify(thesymbol);
 let removedpairchar=thesymbol.replaceAll("/","")
- pairsymbol.innerHTML=removedpairchar
+//  pairsymbol.innerHTML=removedpairchar
 
 
 }catch (error){
@@ -187,7 +190,7 @@ bluring.style.display='block'
 
 
 
-fetch(`https://api.massive.com/v2/aggs/ticker/I:NDX/range/1/minute/2026-11-03/2026-11-04?apiKey=YOUR_API_KEY`)
+// fetch(`https://api.massive.com/v2/aggs/ticker/I:NDX/range/1/minute/2026-11-03/2026-11-04?apiKey=YOUR_API_KEY`)
 
 
 //  display result
@@ -214,7 +217,15 @@ let smallcontractsize=1
 let mediumcontractsize=10
 // pips value end
 
+
+
 calculatebtn.addEventListener('click',()=>{
+
+// fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/${thepiar}`)
+// .then((threspons)=>threspons.json())
+
+
+
 
   // get % of the balance
  let balanceevalue=Number(balance.value) 
@@ -239,10 +250,12 @@ console.log(quotecurrency)
 
 // USD/CAD GROUP
  if (quotecurrency==='CAD'&&balanceevalue&&riskvalue&&pipsvalue){
-
- fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/USD/CAD`)
+fetch(`https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/USD/CAD`)
 .then((threspons)=>threspons.json())
 .then( therespons=>localStorage.setItem('usdcadprice',therespons.conversion_rate))
+
+// console.log(threspons.conversion_rate);
+
   let thecontracsize=contractsize*pairwithoutjpy
  
   let convertusdcadprice=Number(localStorage.getItem('usdcadprice')) //usdcad price
@@ -252,13 +265,14 @@ console.log(quotecurrency)
    displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${'--'}`
  displaypipsinrisk.innerHTML=pipsvalue
+
 }
 
 
 // USD/CHF GROUP
 else if (quotecurrency==='CHF'&&balanceevalue&&riskvalue&&pipsvalue){
 
- fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/USD/CHF`)
+ fetch(` https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/USD/CHF`)
 .then((threspons)=>threspons.json())
 .then( therespons=>localStorage.setItem('usdchfprice',therespons.conversion_rate))
   let thecontracsize=contractsize*pairwithoutjpy
@@ -266,7 +280,10 @@ else if (quotecurrency==='CHF'&&balanceevalue&&riskvalue&&pipsvalue){
   let convertusdchfprice=Number(localStorage.getItem('usdchfprice')) //usdcad price
   let convertousdamount=thecontracsize/convertusdchfprice; //pips in USD is correct
   let thelotsizetouse=risktotake/(pipsvalue*convertousdamount) 
-  lotsize.innerHTML=thelotsizetouse.toFixed(3)
+  lotsize.innerHTML=thelotsizetouse.toFixed(3);
+     displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 
 
@@ -275,24 +292,26 @@ else if (quotecurrency==='CHF'&&balanceevalue&&riskvalue&&pipsvalue){
 else if (quotecurrency==='JPY'&&balanceevalue&&riskvalue&&pipsvalue){
 
   
- fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/USD/JPY`)
+ fetch(`https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/USD/JPY`)
 .then((threspons)=>threspons.json())
 .then( therespons=>localStorage.setItem('usdjpyfprice',therespons.conversion_rate))
-console.log()
+
   let thecontracsize=contractsize*pairdwithjpy
- console.log(thecontracsize)
+
   let convertusdjpyprice=Number(localStorage.getItem('usdjpyfprice')) //usdcad price
   let convertousdamount=thecontracsize/convertusdjpyprice; //pips in USD is correct
   let thelotsizetouse=risktotake/(pipsvalue*convertousdamount) 
-  lotsize.innerHTML=thelotsizetouse.toFixed(3)
-
+  lotsize.innerHTML=thelotsizetouse.toFixed(3);
+   displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 
 // AUDUSD GROUP
 
 else if (quotecurrency==='AUD'&&balanceevalue&&riskvalue&&pipsvalue){
   
- fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/AUD/USD`)
+ fetch(` https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/AUD/USD`)
 .then((threspons)=>threspons.json())
 .then( therespons=>localStorage.setItem('audusdprice',therespons.conversion_rate))
 console.log()
@@ -301,14 +320,16 @@ console.log()
   let convertaudusdprice=Number(localStorage.getItem('audusdprice')) //audusd price
   let convertousdamount=thecontracsize*convertaudusdprice; //pips in USD is correct
   let thelotsizetouse=risktotake/(pipsvalue*convertousdamount) 
-  lotsize.innerHTML=thelotsizetouse.toFixed(3)
-
+  lotsize.innerHTML=thelotsizetouse.toFixed(3);
+   displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 
 
 // GBPUSD GROUP
 else if (quotecurrency==='GBP'&&balanceevalue&&riskvalue&&pipsvalue){
- fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/GBP/USD`)
+ fetch(` https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/GBP/USD`)
 .then((threspons)=>threspons.json())
 .then( therespons=>localStorage.setItem('gbpusdprice',therespons.conversion_rate))
 console.log()
@@ -317,7 +338,10 @@ console.log()
   let convertgbpusdprice=Number(localStorage.getItem('gbpusdprice')) //gbpusd price
   let convertousdamount=thecontracsize*convertgbpusdprice; //pips in USD is correct
   let thelotsizetouse=risktotake/(pipsvalue*convertousdamount) 
-  lotsize.innerHTML=thelotsizetouse.toFixed(3)
+  lotsize.innerHTML=thelotsizetouse.toFixed(3);
+     displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 
 }
 
@@ -326,7 +350,7 @@ console.log()
 
 
 else if (quotecurrency==='EUR'&&balanceevalue&&riskvalue&&pipsvalue){
- fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/EUR/USD`)
+ fetch(` https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/EUR/USD`)
 .then((threspons)=>threspons.json())
 .then( therespons=>localStorage.setItem('eurusdprice',therespons.conversion_rate))
 console.log()
@@ -335,14 +359,17 @@ console.log()
   let converteurusdprice=Number(localStorage.getItem('eurusdprice')) //eurusd price
   let convertousdamount=thecontracsize*converteurusdprice; //pips in USD is correct
   let thelotsizetouse=risktotake/(pipsvalue*convertousdamount) 
-  lotsize.innerHTML=thelotsizetouse.toFixed(3)
+  lotsize.innerHTML=thelotsizetouse.toFixed(3);
+     displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 
 }
 
 // NZDUSD GROUP
 
 else if (quotecurrency==='NZD'&&balanceevalue&&riskvalue&&pipsvalue){
- fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/NZD/USD`)
+ fetch(` https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/NZD/USD`)
 .then((threspons)=>threspons.json())
 .then( therespons=>localStorage.setItem('nzdusdprice',therespons.conversion_rate))
 console.log()
@@ -351,7 +378,10 @@ console.log()
   let convertnzdusdprice=Number(localStorage.getItem('nzdusdprice')) //nzdusd price
   let convertousdamount=thecontracsize*convertnzdusdprice; //pips in USD is correct
   let thelotsizetouse=risktotake/(pipsvalue*convertousdamount) 
-  lotsize.innerHTML=thelotsizetouse.toFixed(3)
+  lotsize.innerHTML=thelotsizetouse.toFixed(3);
+     displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 
 }
 
@@ -367,6 +397,9 @@ let majorpairlots=risktotake/(pipsvalue*majorpairpaylot)
  displaypipvalue.innerHTML=`$${0.01}`
  displaypipsinrisk.innerHTML=pipsvalue;
 
+   displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 
 
@@ -379,64 +412,85 @@ let cryptolotstouse=risktotake/(pipsvalue*cryptopairpaylot)
  displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${0.10}`
  displaypipsinrisk.innerHTML=pipsvalue;
+    displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 
 // indices
 
-else if(!brokerandpropdisplay.innerHTML.includes('OctaFX')&&curency.innerHTML.includes('NAS100')||curency.innerHTML.includes('SXP500')){
+else if(curency.innerHTML.includes('NAS100')||curency.innerHTML.includes('SXP500')){
 let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize)
  lotsize.innerHTML=indiceslotstouse.toFixed(3);
   displayriskaount.innerHTML=`$${risktotake}`
+     displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 else if(brokerandpropdisplay.innerHTML.includes('OctaFX')&&curency.innerHTML.includes('US30')){
 let indiceslotstouse=risktotake/(pipsvalue*mediumcontractsize)
  lotsize.innerHTML=indiceslotstouse.toFixed(3);
   displayriskaount.innerHTML=`$${risktotake}`
+     displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 
 else if(brokerandpropdisplay.innerHTML.includes('Funded next')){
 let indiceslotstouse=risktotake/(pipsvalue*mediumcontractsize)
  lotsize.innerHTML=indiceslotstouse.toFixed(3);
   displayriskaount.innerHTML=`$${risktotake}`
+     displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 
 
 else if(curency.innerHTML.includes('US30')){
   let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize)
  lotsize.innerHTML=indiceslotstouse.toFixed(3);
-  displayriskaount.innerHTML=`$${risktotake}`
+  displayriskaount.innerHTML=`$${risktotake}`;
+     displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 
 else if(curency.innerHTML.includes('GER40')){
 
- fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/EUR/USD`)
+ fetch(` https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/EUR/USD`)
 .then((threspons)=>threspons.json())
 .then( therespons=>localStorage.setItem('eurusdprice',therespons.conversion_rate))
 let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize*Number(localStorage.getItem('eurusdprice')))
  lotsize.innerHTML=indiceslotstouse.toFixed(3);
-
+   displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 
 }
 else if(curency.innerHTML.includes('JP225')){
 
- fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/USD/JPY`)
+ fetch(` https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/USD/JPY`)
 .then((threspons)=>threspons.json())
 .then( therespons=>localStorage.setItem('usdjpyprice',therespons.conversion_rate))
 let indiceslotstouse=(risktotake*Number(localStorage.getItem('usdjpyprice')))/(pipsvalue*smallcontractsize)
 
  lotsize.innerHTML=indiceslotstouse.toFixed(3);
-
-
+   displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue;
 }
+
 else if(curency.innerHTML.includes('UK100')){
 
- fetch(`https://v6.exchangerate-api.com/v6/8ce863e5f792ed76106498b9/pair/GBP/USD`)
+ fetch(`ht https://v6.exchangerate-api.com/v6/be74dfdcb77d34057d6b35a5/pair/GBP/USD`)
 .then((threspons)=>threspons.json())
 .then( therespons=>localStorage.setItem('gbpusdprice',therespons.conversion_rate))
 let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize*Number(localStorage.getItem('gbpusdprice')))
  lotsize.innerHTML=indiceslotstouse.toFixed(3);
 
-
+   displayriskaount.innerHTML=`$${risktotake}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML=pipsvalue
 }
 
 // cruid oil
@@ -461,6 +515,9 @@ let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize*Number(localStorage
 
 else{
  lotsize.innerHTML='0.000'
+    displayriskaount.innerHTML=`$${'0.00'}`
+ displaypipvalue.innerHTML=`$${'--'}`
+ displaypipsinrisk.innerHTML='0.00'
 }
 
 
@@ -518,6 +575,7 @@ const informationpage=document.getElementById('informationpage');
 const inforpagesign=document.querySelector('.infor-page-sign')
 const calculatorpage=document.getElementById('calculatorpage');
 const calculatorpagesign=document.querySelector('.calculator-page-sign')
+const settingpage=document.getElementById('settingpage');
 
   calculatorpage.style.display='block'
 function showpage(pageid){
@@ -525,14 +583,26 @@ if(pageid==='informationpage'){
 
   informationpage.style.display='block';
   calculatorpage.style.display='none'
-  inforpagesign.classList.add('greennav')
+  inforpagesign.classList.add('greennav');
+     settingpage.style.display='none'
+     
 }
 
 else if (pageid==='calculatorpage'){ 
   calculatorpage.style.display='block'
  informationpage.style.display='none';
- 
+   settingpage.style.display='none'
 }
+else if (pageid==='settingpage')
+{
+  settingpage.style.display='block'
+
+  calculatorpage.style.display='none'
+ informationpage.style.display='none';
+
+}
+
+
 }
 
 // const pipscheck=document.querySelectorAll('.pips-check')
@@ -619,7 +689,31 @@ platformtype.innerHTML='CFD Broker'
 
 
 
+// left page
 
+
+const letfpagerap=document.querySelector('.letf-page-rap')
+// letfpagerap.style.display='block'
+function menu(){
+  letfpagerap.style.display='block'
+}
+
+   
+ if ( window.innerWidth>=650){
+  letfpagerap.style.display='block'
+  }
+
+
+
+letfpagerap.addEventListener('click',()=>{
+  if ( window.innerWidth<=650){
+     letfpagerap.style.display='none'
+  }
+
+})
+
+
+// left page end
 
 
 
