@@ -37,7 +37,7 @@ p{
 
 .container{
   margin:  0 auto;
-  max-width: 1200px;
+  max-width: 100%;
   /* margin-left: 3rem; */
 }
 
@@ -51,6 +51,7 @@ header{
   gap: 2rem;
   width: 100%;
   justify-content: space-between;
+ 
   /* margin-top: 1rem; */
   padding-top: 1rem;
   position: fixed;
@@ -60,6 +61,7 @@ header{
    z-index: 1;
   overflow: hidden;
   top: 0;
+  
 }
 .heade-text {
   color: var(--text-colore);
@@ -68,18 +70,23 @@ display: flex;
 align-items: center;
 width: 100%;
 gap: 0.3rem;
-font-weight: 600;
+ 
+
 }
 
-
+.platform-head-name{
+  font-weight: 700;
+}
 .lots-size-text{
   color: var(--primary);
+
 }
 
 .header-description{
 color: #00D9F5;
 margin: 0px;
 font-size: 0.8rem;
+width: 100%;
 }
 
 .top-logo{
@@ -90,7 +97,9 @@ font-size: 0.8rem;
 .head-text-rap{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
+  justify-self: center;
+ width: 100%;
 }
 .head-text-and-image{
   display: flex;
@@ -102,11 +111,12 @@ font-size: 0.8rem;
   font-size: var(--meduimsize-2rem);
   display: flex;
   align-self: flex-start;
+ 
 }
 
 .trade-image{
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   
 }
 
@@ -118,6 +128,7 @@ font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   color: var(--small-text-colore);
+  margin-right: 16rem;
 }
 
 .risk-less{
@@ -330,6 +341,7 @@ border: 1px solid var(--border);
 padding: 2rem;
 border-radius: 1rem;
 margin: 1rem 0rem 1rem 0rem;
+height: 100%;
 }
 
 .entry-stop-image{
@@ -868,6 +880,10 @@ z-index: 2;
 display: none;
 }
 
+.top-head{
+  display: flex;
+  align-self: flex-start;
+}
 .all-pages{
 
 margin-left:0rem;
@@ -918,15 +934,18 @@ display: inline;
 
 
 .trade-image{
-  width: 100%;
-
+height: 4rem;
+width: 4rem;
+/* display: none; */
   
 }
 
 .topmeanu{
   display: inline;
-  padding-right: 2rem;
+  /* padding-right: 2rem; */
 }
+
+
 /* .risk-details{
   display: flex;
   justify-content: space-between;
@@ -969,7 +988,7 @@ justify-content: space-evenly;
 padding-right:4rem ;
 padding-left: 1rem;
 padding-bottom: 0.5rem;
-f
+
 
 }
 
@@ -1089,9 +1108,16 @@ nav{
 
 .head-text-rap{
   align-self: flex-start;
+ width: 100%;
+ margin-right: 2rem;
 }
 
-
+.head-text{
+width: 100%;
+  display: flex;
+   justify-content: space-between;
+   
+}
 
 .risk-details{
 width: 100%;
@@ -1168,7 +1194,7 @@ align-items: center;
   .top-head{
    display: flex;
  align-self: flex-start;
- margin-top: 1rem;
+ /* margin-top: 1rem; */
   }
 .trade-image{
   width:auto;
