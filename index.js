@@ -12,7 +12,7 @@ const thefx=document.querySelector('.thefx')
 const thedity=document.querySelector('.thedity')
 const thepto=document.querySelector('.thepto')
 let balance=document.getElementById('balance');
-
+const apierrorshow=document.querySelector('.api-error-show')
 
 
 
@@ -69,7 +69,7 @@ let removedpairchar=thesymbol.replaceAll("/","")
 // }
 
 }catch (error){
-alert('please check your internet connection')
+apierrorshow.style.display='block'
 
 }
 }
@@ -96,13 +96,13 @@ const cryptodata = await response.json();
 
 
    } catch(error){
-alert('please check your internet connection')
+apierrorshow.style.display='block'
     }
   }
 async function name(){
    const indicesrespons= await fetch(`https://financialmodelingprep.com/stable/quote?symbol=^NDX&apikey=g8hWTaM4vf5ME9C22tjLHgKrcL6ZxUL3`)
   const theindicesdata= await indicesrespons.json();
-  console.log(theindicesdata)
+  console.log(theindicesdata)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 }
 
 name()
@@ -208,8 +208,14 @@ curency.innerHTML='Select pair'
 
 
 bluring.addEventListener('click',()=>{
-bluring.style.display='none'
+bluring.style.display='none';
+
 })
+
+apierrorshow.addEventListener('click',()=>{
+ apierrorshow.style.display='none' 
+})
+
 
 selectpiar.addEventListener('click',()=>{
 
@@ -244,12 +250,12 @@ bluring.style.display='block'
 
 
 //  display result
-
-if (balance){
+let risk=document.getElementById('Risk');
+if (risk){
 
 
 let pips=document.getElementById('pips');
-let risk=document.getElementById('Risk');
+
 let lotsize=document.querySelector('.lots-size');
 const calculatebtn=document.querySelector('.calculate-btn');
 const displayriskaount=document.querySelector('.riskamount');
@@ -288,7 +294,8 @@ if (curency.innerHTML.includes('XAUUSD')&& balanceevalue&&riskvalue&&pipsvalue){
  lotsize.innerHTML=xauusdlotstouse.toFixed(3);
  displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${1}`
- displaypipsinrisk.innerHTML=pipsvalue
+ displaypipsinrisk.innerHTML=pipsvalue;
+  liveprice.innerHTML='-----'
 }
 
 // get html currency showing
@@ -480,7 +487,8 @@ let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize)
   displayriskaount.innerHTML=`$${risktotake}`
      displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${'--'}`
- displaypipsinrisk.innerHTML=pipsvalue
+ displaypipsinrisk.innerHTML=pipsvalue;
+  liveprice.innerHTML='-----'
 }
 else if(brokerandpropdisplay.innerHTML.includes('OctaFX')&&curency.innerHTML.includes('US30')){
 let indiceslotstouse=risktotake/(pipsvalue*mediumcontractsize)
@@ -489,6 +497,7 @@ let indiceslotstouse=risktotake/(pipsvalue*mediumcontractsize)
      displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${'--'}`
  displaypipsinrisk.innerHTML=pipsvalue
+ liveprice.innerHTML='-----'
 }
 
 else if(brokerandpropdisplay.innerHTML.includes('Funded next')){
@@ -498,6 +507,7 @@ let indiceslotstouse=risktotake/(pipsvalue*mediumcontractsize)
      displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${'--'}`
  displaypipsinrisk.innerHTML=pipsvalue
+  liveprice.innerHTML='-----'
 }
 
 
@@ -508,6 +518,7 @@ else if(curency.innerHTML.includes('US30')){
      displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${'--'}`
  displaypipsinrisk.innerHTML=pipsvalue
+  liveprice.innerHTML='-----'
 }
 
 else if(curency.innerHTML.includes('GER40')){
@@ -520,7 +531,7 @@ let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize*Number(localStorage
    displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${'--'}`
  displaypipsinrisk.innerHTML=pipsvalue
-
+ liveprice.innerHTML='-----'
 }
 else if(curency.innerHTML.includes('JP225')){
 
@@ -533,6 +544,7 @@ let indiceslotstouse=(risktotake*Number(localStorage.getItem('usdjpyprice')))/(p
    displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${'--'}`
  displaypipsinrisk.innerHTML=pipsvalue;
+  liveprice.innerHTML='-----'
 }
 
 else if(curency.innerHTML.includes('UK100')){
@@ -545,7 +557,8 @@ let indiceslotstouse=risktotake/(pipsvalue*smallcontractsize*Number(localStorage
 
    displayriskaount.innerHTML=`$${risktotake}`
  displaypipvalue.innerHTML=`$${'--'}`
- displaypipsinrisk.innerHTML=pipsvalue
+ displaypipsinrisk.innerHTML=pipsvalue;
+  liveprice.innerHTML='-----'
 }
 
 // cruid oil
@@ -595,9 +608,11 @@ else{
 const savebalance=document.querySelector('.save-balance');
 const savebalancerap=document.querySelector('.save-balance-rap');
 const inputext=document.querySelectorAll('.input-text')
+const savepacentage=document.querySelector('.save-pacentage')
+const savepacentagerap=document.querySelector('.save-pacentage-rap')
 const savetext='Save'
  savebalance.innerHTML=savetext
-
+savepacentage.innerHTML=savetext
 balance.addEventListener('click',()=>{
 savebalancerap.style.display='block';
  savebalance.innerHTML=savetext
@@ -608,13 +623,46 @@ savebalance.addEventListener('click',()=>{
  localStorage.setItem('savedbalance',balance.value)
         savebalance.innerHTML='Saved';
 
-})
+});
+
+
 balance.value=localStorage.getItem('savedbalance')
 
+
+
+savepacentage.addEventListener('click',()=>{
+
+ localStorage.setItem('saverisk',risk.value)
+        savepacentage.innerHTML='Saved';
+
+});
+
+risk.addEventListener('click',()=>{
+  savepacentagerap.style.display='block';
+})
+
+
+
 inputext.forEach(inputext=>{
+
   inputext.addEventListener('click',()=>{
    savebalancerap.style.display='none'
+
+  // savepacentagerap.style.display='none'
+if(risk){
+  savepacentagerap.style.display='block'
+  // savepacentagerap.style.display='block'
+}
+ else if(!risk){
+  savepacentagerap.style.display='none';
+  // savepacentagerap.style.display='block'
+}
+
+
+
+
 })
+
 })
 
 
