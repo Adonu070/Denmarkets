@@ -665,7 +665,19 @@ if(risk){
 
 })
 
+const Deletesavedbalnce=document.querySelector('.Delete-saved-balnce')
+const Deletesavedpacentage=document.querySelector('.Delete-saved-pacentage')
 
+
+Deletesavedbalnce.addEventListener('click',()=>{
+balance.value=''
+ localStorage.setItem('savedbalance',balance.value)
+})
+
+Deletesavedpacentage.addEventListener('click',()=>{
+  r
+   localStorage.setItem('saverisk',risk.value)
+})
 // if(savebalance.innerHTML==='Saved'){
 
 // }
