@@ -70,8 +70,8 @@ let removedpairchar=thesymbol.replaceAll("/","")
 
 }catch (error){
 apierrorshow.style.display='block'
-
 }
+  
 }
 
 
@@ -98,7 +98,10 @@ const cryptodata = await response.json();
    } catch(error){
 apierrorshow.style.display='block'
     }
+  
   }
+
+
 async function name(){
    const indicesrespons= await fetch(`https://financialmodelingprep.com/stable/quote?symbol=^NDX&apikey=g8hWTaM4vf5ME9C22tjLHgKrcL6ZxUL3`)
   const theindicesdata= await indicesrespons.json();
@@ -212,9 +215,6 @@ bluring.style.display='none';
 
 })
 
-apierrorshow.addEventListener('click',()=>{
- apierrorshow.style.display='none' 
-})
 
 
 selectpiar.addEventListener('click',()=>{
@@ -641,7 +641,7 @@ risk.addEventListener('click',()=>{
   savepacentagerap.style.display='block';
 })
 
-
+risk.value=localStorage.getItem('saverisk')
 
 inputext.forEach(inputext=>{
 
@@ -675,7 +675,7 @@ balance.value=''
 })
 
 Deletesavedpacentage.addEventListener('click',()=>{
-  r
+  risk.value=''
    localStorage.setItem('saverisk',risk.value)
 })
 // if(savebalance.innerHTML==='Saved'){
